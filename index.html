@@ -174,10 +174,16 @@
     <!-- Footer Section -->
     <footer class="bg-gray-800 py-6 text-white text-center">
         <div class="container mx-auto px-4">
-            <p class="text-sm">© 2023 Clicksential Digital PLT</p>
+            <p class="text-sm" id="footer-year">© <span id="current-year"></span> Clicksential Digital PLT</p>
             <!-- Social Media Icons/Links -->
         </div>
     </footer>
+    
+    <script>
+      // JavaScript code to update the current year dynamically
+      const currentYear = new Date().getFullYear();
+      document.getElementById('current-year').innerText = currentYear;
+    </script>
 
     <!-- Optional JavaScript -->
     <!-- Your custom scripts here (if any) -->
