@@ -42,11 +42,21 @@
                 <!-- Selected product list will be generated here -->
             </ul>
         </div>
+
+        <!-- Autoboost Button -->
+        <button id="autoboostButton" class="mt-4 bg-green-500 text-white p-2 rounded hover:bg-green-600">Autoboost these products</button>
+    </div>
+
+    <div id="successPage" class="hidden max-w-md mx-auto bg-white p-6 rounded shadow-lg mt-4">
+        <h1 class="text-2xl font-semibold mb-4">Autoboost Success</h1>
+        <p>The autoboost function for the selected products has been enabled. It will boost the visibility of your products in Shopee's Search and Promotion algorithm for a duration of 4 hours.</p>
     </div>
 
     <script>
         const productList = document.getElementById('productList');
         const selectedList = document.getElementById('selectedList');
+        const autoboostButton = document.getElementById('autoboostButton');
+        const successPage = document.getElementById('successPage');
 
         // Listen for checkbox changes
         productList.addEventListener('change', function (event) {
@@ -70,6 +80,16 @@
                 }
             }
         }
+
+        // Listen for Autoboost button click
+        autoboostButton.addEventListener('click', function () {
+            // Display the success page
+            successPage.style.display = 'block';
+
+            // Hide the product list and Autoboost button
+            productList.style.display = 'none';
+            autoboostButton.style.display = 'none';
+        });
     </script>
 </body>
 </html>
