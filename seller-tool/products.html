@@ -58,11 +58,32 @@
         const autoboostButton = document.getElementById('autoboostButton');
         const successPage = document.getElementById('successPage');
 
+        // Load the saved checkbox state from localStorage and set it
+        loadCheckboxState();
+
+        // Function to load the saved checkbox state from localStorage
+        function loadCheckboxState() {
+            for (const checkbox of productList.querySelectorAll('input[type="checkbox"]')) {
+                const productName = checkbox.getAttribute('data-product');
+                const isChecked = localStorage.getItem(productName) === 'true';
+                checkbox.checked = isChecked;
+                if (isChecked) {
+                    addSelectedProduct(productName);
+                }
+            }
+        }
+
         // Listen for checkbox changes
         productList.addEventListener('change', function (event) {
-            if (event.target.type === 'checkbox' && event.target.checked) {
+            if (event.target.type === 'checkbox') {
                 const productName = event.target.getAttribute('data-product');
-                addSelectedProduct(productName);
+                const isChecked = event.target.checked;
+                localStorage.setItem(productName, isChecked);
+                if (isChecked) {
+                    addSelectedProduct(productName);
+                } else {
+                    removeSelectedProduct(productName);
+                }
             }
         });
 
@@ -77,6 +98,17 @@
                 const checkbox = productList.querySelector(`input[data-product="${productName}"]`);
                 if (checkbox) {
                     checkbox.checked = false;
+                    removeSelectedProduct(productName);
+                }
+            }
+        }
+
+        // Function to remove a deselected product from the list
+        function removeSelectedProduct(productName) {
+            const selectedItems = selectedList.querySelectorAll('li');
+            for (const item of selectedItems) {
+                if (item.textContent === productName) {
+                    item.remove();
                 }
             }
         }
@@ -86,9 +118,10 @@
             // Display the success page
             successPage.style.display = 'block';
 
-            // Hide the product list and Autoboost button
+            // Hide the product list, Autoboost button, and selected products
             productList.style.display = 'none';
             autoboostButton.style.display = 'none';
+            selectedProducts.style.display = 'none';
         });
     </script>
 </body>
