@@ -15,23 +15,23 @@
             <!-- Static Product List -->
             <div class="flex items-center justify-between border-b py-2">
                 <span>Product 1 (Stock: 10)</span>
-                <input type="checkbox">
+                <input type="checkbox" data-product="Product 1">
             </div>
             <div class="flex items-center justify-between border-b py-2">
                 <span>Product 2 (Stock: 15)</span>
-                <input type="checkbox">
+                <input type="checkbox" data-product="Product 2">
             </div>
             <div class="flex items-center justify-between border-b py-2">
                 <span>Product 3 (Stock: 8)</span>
-                <input type="checkbox">
+                <input type="checkbox" data-product="Product 3">
             </div>
             <div class="flex items-center justify-between border-b py-2">
                 <span>Product 4 (Stock: 12)</span>
-                <input type="checkbox">
+                <input type="checkbox" data-product="Product 4">
             </div>
             <div class="flex items-center justify-between border-b py-2">
                 <span>Product 5 (Stock: 5)</span>
-                <input type="checkbox">
+                <input type="checkbox" data-product="Product 5">
             </div>
             <!-- Add more products as needed -->
         </div>
@@ -44,6 +44,32 @@
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        const productList = document.getElementById('productList');
+        const selectedList = document.getElementById('selectedList');
+
+        // Listen for checkbox changes
+        productList.addEventListener('change', function (event) {
+            if (event.target.type === 'checkbox' && event.target.checked) {
+                const productName = event.target.getAttribute('data-product');
+                addSelectedProduct(productName);
+            }
+        });
+
+        // Function to add selected product to the list
+        function addSelectedProduct(productName) {
+            if (selectedList.childElementCount < 5) {
+                const listItem = document.createElement('li');
+                listItem.textContent = productName;
+                selectedList.appendChild(listItem);
+            } else {
+                // Uncheck the checkbox if the user exceeds the limit
+                const checkbox = productList.querySelector(`input[data-product="${productName}"]`);
+                if (checkbox) {
+                    checkbox.checked = false;
+                }
+            }
+        }
+    </script>
 </body>
 </html>
